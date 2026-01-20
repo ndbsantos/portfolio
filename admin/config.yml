@@ -1,0 +1,30 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "assets/uploads"
+public_folder: "/assets/uploads"
+
+collections:
+  - name: "data"
+    label: "Dados"
+    files:
+      - name: "projects"
+        label: "Projetos"
+        file: "data/projects.json"
+        format: "json"
+        fields:
+          - name: "projects"
+            label: "Projetos"
+            widget: "list"
+            summary: "{{fields.Year}} — {{fields.ProjectClient}}"
+            fields:
+              - { name: "Year", label: "Ano", widget: "number", value_type: "int" }
+              - { name: "ProjectClient", label: "Projeto / Cliente", widget: "string" }
+              - { name: "Technologies", label: "Tecnologias", widget: "string", required: false }
+              - { name: "Outcome", label: "Resultado / Impacto", widget: "text", required: false }
+              - { name: "Role", label: "Role", widget: "string", required: false }
+              - { name: "Sector", label: "Setor", widget: "string", required: false }
+              - { name: "Notes", label: "Notas (escopo, dimensão, KPIs)", widget: "text", required: false }
+              - { name: "Links", label: "Links (opcional)", widget: "list", required: false, field: { name: "url", label: "URL", widget: "string" } }
+              - { name: "Attachments", label: "Anexos (opcional)", widget: "list", required: false, field: { name: "file", label: "Ficheiro", widget: "file" } }

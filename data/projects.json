@@ -1,0 +1,164 @@
+{
+  "projects": [
+    {
+      "Year": 2003,
+      "ProjectClient": "Exchange 5.5 to 2003 Migration",
+      "Technologies": "Exchange 5.5/2003, AD",
+      "Outcome": "Improved email reliability and security",
+      "Role": "Implementer",
+      "Sector": "Architecture",
+      "Notes": "",
+      "slug": "exchange-5-5-to-2003-migration"
+    },
+    {
+      "Year": 2004,
+      "ProjectClient": "Complete Infrastructure (end-to-end: design, cabling, turnkey delivery)",
+      "Technologies": "AD, Exchange, TMG, VMware, Cabling, WAN/LAN",
+      "Outcome": "Multisite network implemented; improved BC posture",
+      "Role": "Project design / Manager / Implementer",
+      "Sector": "Logistics",
+      "Notes": "",
+      "slug": "complete-infrastructure-end-to-end-design-cabling-turnkey-delivery"
+    },
+    {
+      "Year": 2005,
+      "ProjectClient": "ISA / Forefront TMG Installation",
+      "Technologies": "ISA Server, Forefront TMG, Web publishing, SMTP filtering",
+      "Outcome": "Improved security for web/email; spam filtering improved ~70%",
+      "Role": "Project design / Manager / Implementer",
+      "Sector": "Various (Insurance, Logistics, Legal, Telco)",
+      "Notes": "",
+      "slug": "isa-forefront-tmg-installation"
+    },
+    {
+      "Year": 2009,
+      "ProjectClient": "Migration to BPOS",
+      "Technologies": "Exchange, Microsoft BPOS",
+      "Outcome": "Transition to cloud services; savings ~€30k/year",
+      "Role": "Project design / Manager / Implementer",
+      "Sector": "Logistics",
+      "Notes": "",
+      "slug": "migration-to-bpos"
+    },
+    {
+      "Year": 2011,
+      "ProjectClient": "Migration to Office 365 (~3000 users)",
+      "Technologies": "Exchange Online, SharePoint Online, Directory Sync",
+      "Outcome": "Cost reduction ~35%; improved collaboration",
+      "Role": "Project design / Manager / Implementer",
+      "Sector": "Various (Insurance, Logistics, Legal, Telco, Environment, Institutes)",
+      "Notes": "",
+      "slug": "migration-to-office-365-3000-users"
+    },
+    {
+      "Year": 2014,
+      "ProjectClient": "Business Continuity & DR Plans (industrial company)",
+      "Technologies": "BCP/DRP, Risk assessment, Testing exercises",
+      "Outcome": "External audit validation successful",
+      "Role": "Project design / Manager / Implementer",
+      "Sector": "Industry (Production)",
+      "Notes": "",
+      "slug": "business-continuity-dr-plans-industrial-company"
+    },
+    {
+      "Year": 2015,
+      "ProjectClient": "Lync Communications Project (banking & private sector)",
+      "Technologies": "Skype for Business/Lync, Office 365",
+      "Outcome": "National collaboration initiative with Microsoft; unified comms rollout",
+      "Role": "Manager / Implementer",
+      "Sector": "Banking & Private",
+      "Notes": "",
+      "slug": "lync-communications-project-banking-private-sector"
+    },
+    {
+      "Year": 2016,
+      "ProjectClient": "Migration from Asterisk to IPBRICK",
+      "Technologies": "IP Telephony, VoIP, Ticketing",
+      "Outcome": "Stabilized comms; led internal IT team (4 technicians)",
+      "Role": "Management / 3rd-line support",
+      "Sector": "Private Food Sector",
+      "Notes": "",
+      "slug": "migration-from-asterisk-to-ipbrick"
+    },
+    {
+      "Year": 2017,
+      "ProjectClient": "Ransomware recovery & Kaspersky deployment",
+      "Technologies": "Windows Server 2008, Windows 7, Kaspersky, DR/restore",
+      "Outcome": "Recovered 10 servers + 400 workstations; incident remediation",
+      "Role": "Manager / Implementer",
+      "Sector": "Institute",
+      "Notes": "",
+      "slug": "ransomware-recovery-kaspersky-deployment"
+    },
+    {
+      "Year": 2018,
+      "ProjectClient": "Endpoint migration: TrendMicro Worry-Free to Panda AD360",
+      "Technologies": "TrendMicro Worry-Free, Panda AD360, Endpoint policies",
+      "Outcome": "Successful migration across multiple workstations",
+      "Role": "Manager",
+      "Sector": "Industry",
+      "Notes": "",
+      "slug": "endpoint-migration-trendmicro-worry-free-to-panda-ad360"
+    },
+    {
+      "Year": 2018,
+      "ProjectClient": "Implementation & recovery of 3 servers (Windows 2012)",
+      "Technologies": "Windows Server 2012, StorageCraft, Backup/DR",
+      "Outcome": "Server recovery and service restoration",
+      "Role": "Implementer",
+      "Sector": "Industry",
+      "Notes": "",
+      "slug": "implementation-recovery-of-3-servers-windows-2012"
+    },
+    {
+      "Year": 2019,
+      "ProjectClient": "Start of ISO 27001 & NIS projects",
+      "Technologies": "ISO 27001, Risk management, ISMS, NIS",
+      "Outcome": "First clients progressing to compliance",
+      "Role": "Coordinator / Implementer",
+      "Sector": "Various",
+      "Notes": "",
+      "slug": "start-of-iso-27001-nis-projects"
+    },
+    {
+      "Year": 2020,
+      "ProjectClient": "Implementation of multiple firewalls (Sophos, WatchGuard)",
+      "Technologies": "Sophos Firewall, WatchGuard, VPN, IPS, Web filtering",
+      "Outcome": "Perimeter security improvements across clients",
+      "Role": "Project design / Manager / Implementer",
+      "Sector": "Various",
+      "Notes": "",
+      "slug": "implementation-of-multiple-firewalls-sophos-watchguard"
+    },
+    {
+      "Year": 2022,
+      "ProjectClient": "ISO 27001 & NIS2 projects",
+      "Technologies": "GRC, ISO 27001, NIS2 gap assessment",
+      "Outcome": "Compliance for public/private entities",
+      "Role": "Coordinator / Implementer",
+      "Sector": "Logistics & Public",
+      "Notes": "",
+      "slug": "iso-27001-nis2-projects"
+    },
+    {
+      "Year": 2023,
+      "ProjectClient": "Interconnect 20 locations with UniFi",
+      "Technologies": "Ubiquiti UniFi, VLANs, Wi-Fi, Switching, SDN",
+      "Outcome": "Improved productivity & security for coworking spaces",
+      "Role": "Project design / Manager / Implementer",
+      "Sector": "Coworking / Real estate",
+      "Notes": "",
+      "slug": "interconnect-20-locations-with-unifi"
+    },
+    {
+      "Year": 2025,
+      "ProjectClient": "NIS2 / ISO 27001:2022 implementations (4 clients)",
+      "Technologies": "Auditing, GRC, ISO 27001:2022, NIS2, Risk, Policies",
+      "Outcome": "ISMS implemented; NIS2 programs delivered in Maritime, Environmental, Financial, Government sectors",
+      "Role": "Coordinator / Implementer (CISO functions)",
+      "Sector": "Various (Maritime, Environment, Financial, Government)",
+      "Notes": "",
+      "slug": "nis2-iso-27001-2022-implementations-4-clients"
+    }
+  ]
+}

@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Projetos — Nelson Santos</title>
+  <meta name="description" content="Lista de projetos com pesquisa e filtros" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+</head>
+<body>
+  <header class="container header">
+    <div>
+      <a class="brand" href="index.html">Nelson Santos</a>
+      <div class="subtitle">Portfolio de projetos (IT, Cibersegurança, GRC)</div>
+    </div>
+    <nav class="nav">
+      <a class="active" href="projects.html">Projetos</a>
+      <a href="admin/">Editar (CMS)</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <h1>Projetos</h1>
+      <p class="lead">Pesquisa, filtra e abre o detalhe de cada projeto.</p>
+
+      <div class="filters">
+        <input id="q" class="input" type="search" placeholder="Pesquisar (cliente, tecnologia, resultado...)" />
+        <select id="year" class="input"></select>
+        <select id="sector" class="input"></select>
+        <select id="role" class="input"></select>
+        <button id="clear" class="btn">Limpar</button>
+      </div>
+
+      <div class="muted" id="count"></div>
+    </section>
+
+    <section>
+      <div id="list" class="grid"></div>
+    </section>
+  </main>
+
+  <footer class="container footer">
+    <span>© <span id="y"></span> Nelson Santos</span>
+    <span class="muted"><a href="index.html">Início</a></span>
+  </footer>
+
+  <script src="assets/js/app.js"></script>
+  <script>
+    document.getElementById('y').textContent = new Date().getFullYear();
+    window.Portfolio.initProjectsPage();
+  </script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Projeto — Nelson Santos</title>
+  <meta name="description" content="Detalhe do projeto" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+</head>
+<body>
+  <header class="container header">
+    <div>
+      <a class="brand" href="index.html">Nelson Santos</a>
+      <div class="muted">Portfolio</div>
+    </div>
+    <nav class="nav">
+      <a href="projects.html">Projetos</a>
+      <a href="admin/" class="pill">Editar (CMS)</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <div class="crumbs"><a href="projects.html">← Voltar a projetos</a></div>
+    <article id="detail" class="card"></article>
+    <section class="mini">
+      <h2>Outros projetos</h2>
+      <div id="related" class="grid"></div>
+    </section>
+  </main>
+
+  <footer class="container footer">
+    <span>© <span id="y"></span> Nelson Santos</span>
+    <span class="muted"><a href="projects.html">Todos os projetos</a></span>
+  </footer>
+
+  <script src="assets/js/app.js"></script>
+  <script>
+    document.getElementById('y').textContent = new Date().getFullYear();
+    window.Portfolio.renderProjectDetail();
+  </script>
+</body>
+</html>
