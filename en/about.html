@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>About — Nelson Santos</title>
+  <meta name="description" content="Professional profile of Nelson Santos" />
+  <link rel="stylesheet" href="/assets/css/styles.css" />
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+</head>
+<body>
+  <script>
+    window.PORTFOLIO_LABELS = {
+      viewDetail: "View details →",
+      loadError: "Failed to load projects.",
+      noResults: "No results.",
+      notSpecified: "(not specified)",
+      noNotes: "(no additional notes)",
+      relatedNone: "No related projects.",
+      countSuffix: " project(s)",
+      yearAll: "Year (all)",
+      sectorAll: "Sector (all)",
+      roleAll: "Role (all)",
+    };
+  </script>
+  <header class="container header">
+    <a class="brand brand--with-photo" href="index.html">
+      <img class="brand__photo" src="/assets/img/profile.jpg" alt="Photo of Nelson Santos" />
+      <span>
+        <span class="title">Nelson Santos</span>
+        <span class="subtitle">IT • Cybersecurity • GRC (NIS2 / ISO 27001)</span>
+      </span>
+    </a>
+    <nav class="nav">
+      <a href="projects.html">Projects</a>
+      <a class="active" href="about.html">About</a>
+      <a href="/sobre.html" class="pill">PT</a>
+      <a href="/assets/uploads/Portfolio_Projetos_Nelson_Santos_Styled.pdf" download>Download PDF</a>
+      <a href="/admin/" class="pill">Edit (CMS)</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <h1>About</h1>
+      <p class="lead">Systems Engineer with experience in IT Operations and Cybersecurity, acting as CISO/CIO/CTO across Microsoft environments, networking, perimeter security and governance.</p>
+      <div class="cta-row">
+        <a class="btn" href="/assets/uploads/Portfolio_Projetos_Nelson_Santos_Styled.pdf" download>Download Portfolio (PDF)</a>
+        <a class="btn secondary" href="projects.html">View projects</a>
+      </div>
+    </section>
+
+    <section class="grid-2">
+      <article class="card">
+        <h2>What I do</h2>
+        <ul class="bullets">
+          <li>IT Operations (ITSM/ITIL), service desk, vendor management, continuity (BCP/DRP).</li>
+          <li>Architecture and security (perimeter, endpoints, hardening, logging/monitoring).</li>
+          <li>GRC: ISO/IEC 27001:2022, NIS2, DORA, risk and audit readiness.</li>
+        </ul>
+      </article>
+
+      <article class="card">
+        <h2>Examples (impact)</h2>
+        <ul class="bullets">
+          <li>Office 365 migration (~3000 users).</li>
+          <li>Post-ransomware recovery (10 servers + ~400 endpoints).</li>
+          <li>NIS2/ISO 27001 implementations across multiple sectors.</li>
+        </ul>
+      </article>
+    </section>
+  </main>
+
+  <footer class="container footer">
+    <span>© <span id="y"></span> Nelson Santos</span>
+    <span class="muted"><a href="index.html">Home</a></span>
+  </footer>
+
+  <script>
+    document.getElementById('y').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

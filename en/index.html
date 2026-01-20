@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Project Portfolio — Nelson Santos</title>
+  <meta name="description" content="Project portfolio (IT, Cybersecurity, GRC)" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+<!-- Netlify Identity Widget (para convites e reset password) -->
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+<script>
+  if (window.netlifyIdentity) {
+    window.netlifyIdentity.on("init", user => {
+      if (!user) {
+        window.netlifyIdentity.on("login", () => document.location.href = "/admin/");
+      }
+    });
+  }
+</script>
+  
+</head>
+<body>
+  <script>
+    window.PORTFOLIO_LABELS = {
+      viewDetail: "View details →",
+      loadError: "Failed to load projects.",
+      noResults: "No results.",
+      notSpecified: "(not specified)",
+      noNotes: "(no additional notes)",
+      relatedNone: "No related projects.",
+      countSuffix: " project(s)",
+      yearAll: "Year (all)",
+      sectorAll: "Sector (all)",
+      roleAll: "Role (all)"
+    };
+  </script>
+  <header class="container header">
+    <a class="brand brand--with-photo" href="index.html">
+      <img class="brand__photo" src="/assets/img/profile.jpg" alt="Photo of Nelson Santos" />
+      <span>
+        <span class="title">Nelson Santos</span>
+        <span class="subtitle">IT • Cybersecurity • GRC (NIS2 / ISO 27001)</span>
+      </span>
+    </a>
+
+    <nav class="nav">
+      <a href="projects.html">Projects</a>
+      <a href="about.html">About</a>
+      <a href="/index.html" class="pill">PT</a>
+      <a href="/assets/uploads/Portfolio_Projetos_Nelson_Santos_Styled.pdf" download>Download PDF</a>
+      <a href="/admin/" class="pill">Edit (CMS)</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <h1>Project Portfolio</h1>
+      <p class="lead">Projects across Infrastructure, IT Operations, Cybersecurity and GRC (ISO 27001 / NIS2).</p>
+      <div class="cta-row">
+        <a class="btn" href="projects.html">View projects</a>
+        <a class="btn secondary" href="about.html">About me</a>
+        <a class="btn secondary" href="/assets/uploads/Portfolio_Projetos_Nelson_Santos_Styled.pdf" download>Download PDF</a>
+      </div>
+    </section>
+
+    <section class="cards">
+      <div class="card">
+        <h2>What you’ll find</h2>
+        <ul>
+          <li>Infrastructure, cloud and collaboration projects (Exchange, O365, networking)</li>
+          <li>Endpoint and perimeter security (EDR/AV, firewalls, VPN, IPS)</li>
+          <li>GRC and compliance (ISO/IEC 27001:2022, NIS2, risk and audits)</li>
+        </ul>
+      </div>
+      
+    </section>
+
+    <section class="mini">
+      <h2>Latest projects</h2>
+      <div id="latest" class="grid"></div>
+      <p class="muted"><a href="projects.html">View all →</a></p>
+    </section>
+  </main>
+
+  <footer class="container footer">
+    <span>© <span id="y"></span> Nelson Santos</span>
+    <span class="muted">Built with a static site + Decap CMS</span>
+  </footer>
+
+  <script src="/assets/js/app.js?v=4"></script>
+  <script>
+    document.getElementById('y').textContent = new Date().getFullYear();
+    window.Portfolio.renderLatest('latest', 6);
+  </script>
+</body>
+</html>

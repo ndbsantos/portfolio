@@ -1,33 +1,47 @@
 <!doctype html>
-<html lang="pt-PT">
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Projeto — Nelson Santos</title>
-  <meta name="description" content="Detalhe do projeto" />
+  <title>Project — Nelson Santos</title>
+  <meta name="description" content="Project details" />
   <link rel="stylesheet" href="/assets/css/styles.css" />
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
 </head>
 <body>
+  <script>
+    window.PORTFOLIO_LABELS = {
+      viewDetail: "View details →",
+      loadError: "Failed to load projects.",
+      noResults: "No results.",
+      notSpecified: "(not specified)",
+      noNotes: "(no additional notes)",
+      relatedNone: "No related projects.",
+      countSuffix: " project(s)",
+      yearAll: "Year (all)",
+      sectorAll: "Sector (all)",
+      roleAll: "Role (all)",
+    };
+  </script>
   <header class="container header">
     <a class="brand brand--with-photo" href="index.html">
-      <img class="brand__photo" src="/assets/img/profile.jpg" alt="Foto de Nelson Santos" />
+      <img class="brand__photo" src="/assets/img/profile.jpg" alt="Photo of Nelson Santos" />
       <span>
         <span class="title">Nelson Santos</span>
-        <span class="subtitle">IT • Cibersegurança • GRC (NIS2 / ISO 27001)</span>
+        <span class="subtitle">IT • Cybersecurity • GRC (NIS2 / ISO 27001)</span>
       </span>
     </a>
     <nav class="nav">
-      <a href="projects.html">Projetos</a>
-      <a href="sobre.html">Sobre</a>
-      <a href="/en/project.html" class="pill">EN</a>
+      <a href="projects.html">Projects</a>
+      <a href="about.html">About</a>
+      <a href="/project.html" class="pill">PT</a>
       <a href="/assets/uploads/Portfolio_Projetos_Nelson_Santos_Styled.pdf" download>Download PDF</a>
-      <a href="admin/" class="pill">Editar (CMS)</a>
+      <a href="/admin/" class="pill">Edit (CMS)</a>
     </nav>
   </header>
 
   <main class="container">
-    <div class="crumbs"><a href="projects.html">← Voltar a projetos</a></div>
+    <div class="crumbs"><a href="projects.html">← Back to projects</a></div>
 
     <article class="card">
       <div class="project">
@@ -37,25 +51,25 @@
         </div>
       </div>
 
-      <h3 style="margin-top:18px">Tecnologias</h3>
+      <h3 style="margin-top:18px">Technologies</h3>
       <div id="tech" class="meta"></div>
 
-      <h3 style="margin-top:18px">Resultado</h3>
+      <h3 style="margin-top:18px">Outcome</h3>
       <p id="outcome" class="outcome"></p>
 
-      <h3 style="margin-top:18px">Notas / Escala</h3>
+      <h3 style="margin-top:18px">Notes / Scope</h3>
       <div id="notes"></div>
     </article>
 
     <section class="mini">
-      <h2>Outros projetos</h2>
+      <h2>Other projects</h2>
       <div id="related" class="grid"></div>
     </section>
   </main>
 
   <footer class="container footer">
     <span>© <span id="y"></span> Nelson Santos</span>
-    <span class="muted"><a href="projects.html">Todos os projetos</a></span>
+    <span class="muted"><a href="projects.html">All projects</a></span>
   </footer>
 
   <script src="/assets/js/app.js?v=4"></script>

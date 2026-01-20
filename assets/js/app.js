@@ -1,6 +1,20 @@
 (function () {
   const DATA_URL = "/data/projects.json";
 
+  // Optional per-page labels (for EN pages). If not present, defaults to PT.
+  const L = (window.PORTFOLIO_LABELS || {
+    viewDetail: "Ver detalhe →",
+    loadError: "Erro a carregar projetos.",
+    noResults: "Sem resultados.",
+    notSpecified: "(não especificado)",
+    noNotes: "(sem notas adicionais)",
+    relatedNone: "Sem projetos relacionados.",
+    countSuffix: " projeto(s)",
+    yearAll: "Ano (todos)",
+    sectorAll: "Setor (todos)",
+    roleAll: "Função (todas)",
+  });
+
   async function loadProjects() {
     const res = await fetch(DATA_URL, { cache: "no-store" });
     if (!res.ok) throw new Error("Não foi possível carregar projects.json");
@@ -116,7 +130,7 @@
     linkP.style.marginTop = "14px";
     const a = document.createElement("a");
     a.href = "project.html?slug=" + encodeURIComponent(p.slug || "");
-    a.textContent = "Ver detalhe →";
+    a.textContent = L.viewDetail;
     linkP.appendChild(a);
     article.appendChild(linkP);
 
@@ -139,7 +153,7 @@
       card.className = "card";
       const msg = document.createElement("p");
       msg.className = "muted";
-      msg.textContent = "Erro a carregar projetos.";
+      msg.textContent = L.loadError;
       card.appendChild(msg);
       el.appendChild(card);
       console.error(e);
@@ -163,9 +177,9 @@
     const sectors = unique(projects.map((p) => p.sector));
     const roles = unique(projects.map((p) => p.role));
 
-    fillSelect(year, years, "Ano (todos)");
-    fillSelect(sector, sectors, "Setor (todos)");
-    fillSelect(role, roles, "Função (todas)");
+    fillSelect(year, years, L.yearAll);
+    fillSelect(sector, sectors, L.sectorAll);
+    fillSelect(role, roles, L.roleAll);
 
     function apply() {
       const term = (q.value || "").trim().toLowerCase();
@@ -202,14 +216,14 @@
         card.className = "card";
         const msg = document.createElement("p");
         msg.className = "muted";
-        msg.textContent = "Sem resultados.";
+        msg.textContent = L.noResults;
         card.appendChild(msg);
         list.appendChild(card);
       } else {
         for (const p of filtered) list.appendChild(makeCard(p));
       }
 
-      if (count) count.textContent = filtered.length + " projeto(s)";
+      if (count) count.textContent = filtered.length + L.countSuffix;
     }
 
     if (q) q.addEventListener("input", apply);
@@ -269,7 +283,7 @@
       if (!tech.length) {
         const span = document.createElement("span");
         span.className = "muted";
-        span.textContent = "(não especificado)";
+        span.textContent = L.notSpecified;
         techEl.appendChild(span);
       } else {
         tech.forEach((t) => techEl.appendChild(makeBadge(t)));
@@ -286,7 +300,7 @@
         notesEl.innerHTML = "";
         const span = document.createElement("span");
         span.className = "muted";
-        span.textContent = "(sem notas adicionais)";
+        span.textContent = L.noNotes;
         notesEl.appendChild(span);
       }
     }
@@ -345,7 +359,7 @@
         card.className = "card";
         const msg = document.createElement("p");
         msg.className = "muted";
-        msg.textContent = "Sem projetos relacionados.";
+        msg.textContent = L.relatedNone;
         card.appendChild(msg);
         relatedEl.appendChild(card);
       } else {

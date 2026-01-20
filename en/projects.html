@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Projects — Nelson Santos</title>
+  <meta name="description" content="Projects list with search and filters" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+</head>
+<body>
+  <script>
+    window.PORTFOLIO_LABELS = {
+      viewDetail: "View details →",
+      loadError: "Failed to load projects.",
+      noResults: "No results.",
+      notSpecified: "(not specified)",
+      noNotes: "(no additional notes)",
+      relatedNone: "No related projects.",
+      countSuffix: " project(s)",
+      yearAll: "Year (all)",
+      sectorAll: "Sector (all)",
+      roleAll: "Role (all)"
+    };
+  </script>
+  <header class="container header">
+    <a class="brand brand--with-photo" href="index.html">
+      <img class="brand__photo" src="/assets/img/profile.jpg" alt="Photo of Nelson Santos" />
+      <span>
+        <span class="title">Nelson Santos</span>
+        <span class="subtitle">IT • Cybersecurity • GRC (NIS2 / ISO 27001)</span>
+      </span>
+    </a>
+    <nav class="nav">
+      <a class="active" href="projects.html">Projects</a>
+      <a href="about.html">About</a>
+      <a href="/projects.html" class="pill">PT</a>
+      <a href="/assets/uploads/Portfolio_Projetos_Nelson_Santos_Styled.pdf" download>Download PDF</a>
+      <a href="/admin/" class="pill">Edit (CMS)</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <h1>Projects</h1>
+      <p class="lead">Search, filter and open each project.</p>
+
+      <div class="filters">
+        <input id="q" class="input" type="search" placeholder="Search (client, technology, outcome...)" />
+        <select id="year" class="input"></select>
+        <select id="sector" class="input"></select>
+        <select id="role" class="input"></select>
+        <button id="clear" class="btn">Clear</button>
+      </div>
+
+      <div class="muted" id="count"></div>
+    </section>
+
+    <section>
+      <div id="list" class="grid"></div>
+    </section>
+  </main>
+
+  <footer class="container footer">
+    <span>© <span id="y"></span> Nelson Santos</span>
+    <span class="muted"><a href="index.html">Home</a></span>
+  </footer>
+
+
+<script src="/assets/js/app.js?v=4"></script>
+
+<script>
+  document.getElementById("y").textContent = new Date().getFullYear();
+
+  if (window.Portfolio && typeof window.Portfolio.initProjectsPage === "function") {
+    window.Portfolio.initProjectsPage();
+  } else {
+    console.error("Portfolio.initProjectsPage is not available. Check /assets/js/app.js in the Console.");
+  }
+</script>
+  
+</body>
+</html>

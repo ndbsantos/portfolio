@@ -22,35 +22,33 @@
 </head>
 <body>
   <header class="container header">
-    <div class="brand">
-      <div class="logo" aria-hidden="true">NS</div>
-      <div>
-        <div class="title">Nelson Santos</div>
-        <div class="subtitle">IT • Cibersegurança • GRC (NIS2 / ISO 27001)</div>
-      </div>
-    </div>
+    <a class="brand brand--with-photo" href="index.html">
+      <img class="brand__photo" src="/assets/img/profile.jpg" alt="Foto de Nelson Santos" />
+      <span>
+        <span class="title">Nelson Santos</span>
+        <span class="subtitle">IT • Cibersegurança • GRC (NIS2 / ISO 27001)</span>
+      </span>
+    </a>
+
     <nav class="nav">
       <a href="projects.html">Projetos</a>
-      <a href="assets/Portfolio_Projetos_Nelson_Santos.pdf" download>Download PDF</a>
+      <a href="sobre.html">Sobre</a>
+      <a href="/en/index.html" class="pill">EN</a>
+      <a href="assets/uploads/Portfolio_Projetos_Nelson_Santos_Styled.pdf" download>Download PDF</a>
       <a href="admin/" class="pill">Editar (CMS)</a>
-      <a class="brand brand--with-photo" href="index.html">
-  <img class="brand__photo" src="/assets/img/profile.jpg" alt="Foto de Nelson Santos" />
-  <span>Nelson Santos</span>
-</a>
-
     </nav>
   </header>
 
   <main class="container">
     <section class="hero">
       <h1>Portfolio de projetos</h1>
-      <p>
-        Lista de projetos com pesquisa e filtros por ano, setor, tecnologias e função.
-        Podes editar o conteúdo no painel do CMS e o site atualiza automaticamente.
+      <p class="lead">
+        Projetos em Infraestrutura, Operações de TI, Cibersegurança e GRC (ISO 27001 / NIS2).
       </p>
       <div class="cta-row">
         <a class="btn" href="projects.html">Ver projetos</a>
-        <a class="btn secondary" href="assets/Portfolio_Projetos_Nelson_Santos.pdf" download>Descarregar PDF</a>
+        <a class="btn secondary" href="sobre.html">Sobre mim</a>
+        <a class="btn secondary" href="assets/uploads/Portfolio_Projetos_Nelson_Santos_Styled.pdf" download>Descarregar PDF</a>
       </div>
     </section>
 
@@ -75,7 +73,7 @@
 
   <footer class="container footer">
     <span>© <span id="y"></span> Nelson Santos</span>
-    <span class="muted">Gerado com site estático + Decap CMS</span>
+    <span class="muted">PT | <a href="/en/index.html">EN</a></span>
   </footer>
 
   <script src="assets/js/app.js"></script>

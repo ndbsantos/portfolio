@@ -5,6 +5,8 @@ backend:
 media_folder: "assets/uploads"
 public_folder: "/assets/uploads"
 
+# Make PDF available in CMS uploads. (Upload it to assets/uploads/)
+
 collections:
   - name: "data"
     label: "Dados"
