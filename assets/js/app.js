@@ -4,24 +4,26 @@
   async function loadProjects() {
     const res = await fetch(DATA_URL, { cache: "no-store" });
     if (!res.ok) throw new Error("Não foi possível carregar projects.json");
+
     const raw = await res.json();
-    const data = Array.isArray(raw) ? raw : raw.projects || [];
-    // normalize
-    return data
-      .map((p) => ({
-        year: p["Year"] ?? p.year,
-        name: p["ProjectClient"] ?? p["Project / Client"] ?? p.name,
-        technologies: p["Technologies"] ?? p.technologies,
-        outcome: p["Outcome"] ?? p.outcome,
-        role: p["Role"] ?? p.role,
-        sector: p["Sector"] ?? p.sector,
-        notes: p["Notes"] ?? p.notes,
-        scale: p["Scale"] ?? p.scale,
-        slug:
-          p.slug ||
-          slugify(p["ProjectClient"] ?? p["Project / Client"] ?? p.name || ""),
-      }))
-      .sort((a, b) => (b.year || 0) - (a.year || 0));
+    const data = Array.isArray(raw) ? raw : (raw.projects || []);
+
+    const projects = data.map((p) => {
+      const year = p["Year"] ?? p.year ?? "";
+      const name = p["ProjectClient"] ?? p["Project / Client"] ?? p.name ?? "";
+      const technologies = p["Technologies"] ?? p.technologies ?? "";
+      const outcome = p["Outcome"] ?? p.outcome ?? "";
+      const role = p["Role"] ?? p.role ?? "";
+      const sector = p["Sector"] ?? p.sector ?? "";
+      const notes = p["Notes"] ?? p.notes ?? "";
+      const scale = p["Scale"] ?? p.scale ?? "";
+      const slug = p.slug || slugify(name);
+
+      return { year, name, technologies, outcome, role, sector, notes, scale, slug };
+    });
+
+    projects.sort((a, b) => (Number(b.year) || 0) - (Number(a.year) || 0));
+    return projects;
   }
 
   function slugify(s) {
@@ -32,58 +34,6 @@
       .replace(/[^a-z0-9]+/g, "-")
       .replace(/(^-|-$)/g, "")
       .slice(0, 80);
-  }
-
-  function esc(s) {
-    return String(s ?? "").replace(/[&<>"']/g, (c) => ({
-      "&": "&amp;",
-      "<": "&lt;",
-      ">": "&gt;",
-      '"': "&quot;",
-      "'": "&#39;",
-    }[c]));
-  }
-
-  function badge(text) {
-    return `<span class="badge">${esc(text)}</span>`;
-  }
-
-  function projectCard(p) {
-    const tech = (p.technologies ? String(p.technologies).split(/,\s*/) : [])
-      .slice(0, 6)
-      .filter(Boolean);
-
-    return `
-      <article class="card">
-        <div class="project">
-          <div>
-            <div class="year">${esc(p.year)}</div>
-            <h3 class="name">${esc(p.name)}</h3>
-            <div class="meta">
-              ${p.sector ? badge(p.sector) : ""}
-              ${p.role ? badge(p.role) : ""}
-            </div>
-          </div>
-        </div>
-        ${p.outcome ? `<p class="outcome">${esc(p.outcome)}</p>` : ""}
-        ${tech.length ? `<div class="meta">${tech.map(badge).join("")}</div>` : ""}
-        <p style="margin-top:14px"><a href="project.html?slug=${encodeURIComponent(
-          p.slug
-        )}">Ver detalhe →</a></p>
-      </article>
-    `;
-  }
-
-  async function renderLatest(containerId, n) {
-    const el = document.getElementById(containerId);
-    if (!el) return;
-    try {
-      const projects = await loadProjects();
-      el.innerHTML = projects.slice(0, n || 6).map(projectCard).join("");
-    } catch (e) {
-      el.innerHTML = `<div class="card"><p class="muted">Erro a carregar projetos.</p></div>`;
-      console.error(e);
-    }
   }
 
   function unique(arr) {
@@ -98,11 +48,101 @@
     opt0.value = "";
     opt0.textContent = placeholder;
     sel.appendChild(opt0);
+
     for (const it of items) {
       const o = document.createElement("option");
       o.value = it;
       o.textContent = it;
       sel.appendChild(o);
+    }
+  }
+
+  function makeBadge(text) {
+    const span = document.createElement("span");
+    span.className = "badge";
+    span.textContent = text;
+    return span;
+  }
+
+  function makeCard(p) {
+    const article = document.createElement("article");
+    article.className = "card";
+
+    const project = document.createElement("div");
+    project.className = "project";
+
+    const left = document.createElement("div");
+
+    const yearEl = document.createElement("div");
+    yearEl.className = "year";
+    yearEl.textContent = String(p.year || "");
+    left.appendChild(yearEl);
+
+    const nameEl = document.createElement("h3");
+    nameEl.className = "name";
+    nameEl.textContent = p.name || "";
+    left.appendChild(nameEl);
+
+    const metaTop = document.createElement("div");
+    metaTop.className = "meta";
+    if (p.sector) metaTop.appendChild(makeBadge(p.sector));
+    if (p.role) metaTop.appendChild(makeBadge(p.role));
+    left.appendChild(metaTop);
+
+    project.appendChild(left);
+    article.appendChild(project);
+
+    if (p.outcome) {
+      const out = document.createElement("p");
+      out.className = "outcome";
+      out.textContent = p.outcome;
+      article.appendChild(out);
+    }
+
+    const techList = String(p.technologies || "")
+      .split(/,\s*/)
+      .map((x) => x.trim())
+      .filter(Boolean)
+      .slice(0, 6);
+
+    if (techList.length) {
+      const metaTech = document.createElement("div");
+      metaTech.className = "meta";
+      for (const t of techList) metaTech.appendChild(makeBadge(t));
+      article.appendChild(metaTech);
+    }
+
+    const linkP = document.createElement("p");
+    linkP.style.marginTop = "14px";
+    const a = document.createElement("a");
+    a.href = "project.html?slug=" + encodeURIComponent(p.slug || "");
+    a.textContent = "Ver detalhe →";
+    linkP.appendChild(a);
+    article.appendChild(linkP);
+
+    return article;
+  }
+
+  async function renderLatest(containerId, n) {
+    const el = document.getElementById(containerId);
+    if (!el) return;
+
+    try {
+      const projects = await loadProjects();
+      el.innerHTML = "";
+      for (const p of projects.slice(0, n || 6)) {
+        el.appendChild(makeCard(p));
+      }
+    } catch (e) {
+      el.innerHTML = "";
+      const card = document.createElement("div");
+      card.className = "card";
+      const p = document.createElement("p");
+      p.className = "muted";
+      p.textContent = "Erro a carregar projetos.";
+      card.appendChild(p);
+      el.appendChild(card);
+      console.error(e);
     }
   }
 
@@ -117,9 +157,9 @@
 
     const projects = await loadProjects();
 
-    const years = unique(projects.map((p) => String(p.year))).sort(
-      (a, b) => Number(b) - Number(a)
-    );
+    const years = unique(projects.map((p) => String(p.year || "")))
+      .filter(Boolean)
+      .sort((a, b) => Number(b) - Number(a));
     const sectors = unique(projects.map((p) => p.sector));
     const roles = unique(projects.map((p) => p.role));
 
@@ -137,23 +177,45 @@
         if (y && String(p.year) !== y) return false;
         if (s && p.sector !== s) return false;
         if (r && p.role !== r) return false;
+
         if (term) {
-          const blob = `${p.year} ${p.name} ${p.technologies || ""} ${
-            p.outcome || ""
-          } ${p.sector || ""} ${p.role || ""}`.toLowerCase();
-          if (!blob.includes(term)) return false;
+          const blob =
+            (p.year || "") +
+            " " +
+            (p.name || "") +
+            " " +
+            (p.technologies || "") +
+            " " +
+            (p.outcome || "") +
+            " " +
+            (p.sector || "") +
+            " " +
+            (p.role || "");
+          if (!blob.toLowerCase().includes(term)) return false;
         }
         return true;
       });
 
-      list.innerHTML =
-        filtered.map(projectCard).join("") ||
-        `<div class="card"><p class="muted">Sem resultados.</p></div>`;
-      count.textContent = `${filtered.length} projeto(s)`;
+      list.innerHTML = "";
+      if (!filtered.length) {
+        const card = document.createElement("div");
+        card.className = "card";
+        const p = document.createElement("p");
+        p.className = "muted";
+        p.textContent = "Sem resultados.";
+        card.appendChild(p);
+        list.appendChild(card);
+      } else {
+        for (const p of filtered) list.appendChild(makeCard(p));
+      }
+
+      count.textContent = filtered.length + " projeto(s)";
     }
 
     q.addEventListener("input", apply);
-    [year, sector, role].forEach((el) => el.addEventListener("change", apply));
+    year.addEventListener("change", apply);
+    sector.addEventListener("change", apply);
+    role.addEventListener("change", apply);
 
     clear.addEventListener("click", () => {
       q.value = "";
@@ -175,30 +237,54 @@
 
     const params = new URLSearchParams(location.search);
     const slug = params.get("slug");
+
     const projects = await loadProjects();
     const p = projects.find((x) => x.slug === slug) || projects[0];
 
     if (!p) {
-      titleEl.textContent = "Projeto não encontrado";
+      if (titleEl) titleEl.textContent = "Projeto não encontrado";
       return;
     }
 
-    document.title = `${p.name} — Nelson Santos`;
-    titleEl.textContent = p.name;
+    document.title = (p.name || "Projeto") + " — Nelson Santos";
+    if (titleEl) titleEl.textContent = p.name || "";
 
-    const metaBits = [p.year, p.sector, p.role].filter(Boolean);
-    metaEl.innerHTML = metaBits.map(badge).join("");
+    if (metaEl) {
+      metaEl.innerHTML = "";
+      [p.year, p.sector, p.role].filter(Boolean).forEach((x) => {
+        metaEl.appendChild(makeBadge(String(x)));
+      });
+    }
 
-    const tech = (p.technologies ? String(p.technologies).split(/,\s*/) : [])
-      .filter(Boolean);
-    techEl.innerHTML =
-      tech.map(badge).join("") || '<span class="muted">(não especificado)</span>';
+    if (techEl) {
+      techEl.innerHTML = "";
+      const tech = String(p.technologies || "")
+        .split(/,\s*/)
+        .map((x) => x.trim())
+        .filter(Boolean);
 
-    outEl.textContent = p.outcome || "";
-    notesEl.textContent = p.notes || p.scale || "";
+      if (!tech.length) {
+        const span = document.createElement("span");
+        span.className = "muted";
+        span.textContent = "(não especificado)";
+        techEl.appendChild(span);
+      } else {
+        tech.forEach((t) => techEl.appendChild(makeBadge(t)));
+      }
+    }
 
-    if (!notesEl.textContent) {
-      notesEl.innerHTML = '<span class="muted">(sem notas adicionais)</span>';
+    if (outEl) outEl.textContent = p.outcome || "";
+    if (notesEl) {
+      const txt = p.notes || p.scale || "";
+      if (txt) {
+        notesEl.textContent = txt;
+      } else {
+        notesEl.innerHTML = "";
+        const span = document.createElement("span");
+        span.className = "muted";
+        span.textContent = "(sem notas adicionais)";
+        notesEl.appendChild(span);
+      }
     }
   }
 
