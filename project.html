@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Projeto — Nelson Santos</title>
   <meta name="description" content="Detalhe do projeto" />
-  <link rel="stylesheet" href="assets/css/styles.css" />
-  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="/assets/css/styles.css" />
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
 </head>
 <body>
   <header class="container header">
@@ -22,7 +22,25 @@
 
   <main class="container">
     <div class="crumbs"><a href="projects.html">← Voltar a projetos</a></div>
-    <article id="detail" class="card"></article>
+
+    <article class="card">
+      <div class="project">
+        <div>
+          <div id="meta" class="meta"></div>
+          <h1 id="title" class="name" style="margin-top:10px"></h1>
+        </div>
+      </div>
+
+      <h3 style="margin-top:18px">Tecnologias</h3>
+      <div id="tech" class="meta"></div>
+
+      <h3 style="margin-top:18px">Resultado</h3>
+      <p id="outcome" class="outcome"></p>
+
+      <h3 style="margin-top:18px">Notas / Escala</h3>
+      <div id="notes"></div>
+    </article>
+
     <section class="mini">
       <h2>Outros projetos</h2>
       <div id="related" class="grid"></div>
@@ -34,10 +52,14 @@
     <span class="muted"><a href="projects.html">Todos os projetos</a></span>
   </footer>
 
-  <script src="assets/js/app.js"></script>
+  <script src="/assets/js/app.js?v=3"></script>
   <script>
-    document.getElementById('y').textContent = new Date().getFullYear();
-    window.Portfolio.renderProjectDetail();
+    document.getElementById("y").textContent = new Date().getFullYear();
+    if (window.Portfolio && typeof window.Portfolio.initProjectDetail === "function") {
+      window.Portfolio.initProjectDetail();
+    } else {
+      console.error("Portfolio.initProjectDetail não está disponível.");
+    }
   </script>
 </body>
 </html>
