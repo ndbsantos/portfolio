@@ -46,10 +46,21 @@
     <span class="muted"><a href="index.html">Início</a></span>
   </footer>
 
-  <script src="assets/js/app.js"></script>
-  <script>
-    document.getElementById('y').textContent = new Date().getFullYear();
+//  <script src="assets/js/app.js"></script>
+//  <script>
+//    document.getElementById('y').textContent = new Date().getFullYear();
+//    window.Portfolio.initProjectsPage();
+//  </script>
+<script src="/assets/js/app.js"></script>
+<script>
+  document.getElementById("y").textContent = new Date().getFullYear();
+
+  if (window.Portfolio && typeof window.Portfolio.initProjectsPage === "function") {
     window.Portfolio.initProjectsPage();
-  </script>
+  } else {
+    console.error("Portfolio.initProjectsPage não está disponível. Verifica erros em /assets/js/app.js no Console.");
+  }
+</script>
+  
 </body>
 </html>
