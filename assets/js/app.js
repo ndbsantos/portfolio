@@ -146,147 +146,130 @@
     }
   }
 
-  async function initProjectsPage() {
-    const q = document.getElementById("q");
-    const year = document.getElementById("year");
-    const sector = document.getElementById("sector");
-    const role = document.getElementById("role");
-    const clear = document.getElementById("clear");
-    const list = document.getElementById("list");
-    const count = document.getElementById("count");
-
-    const projects = await loadProjects();
-
-    const years = unique(projects.map((p) => String(p.year || "")))
-      .filter(Boolean)
-      .sort((a, b) => Number(b) - Number(a));
-    const sectors = unique(projects.map((p) => p.sector));
-    const roles = unique(projects.map((p) => p.role));
-
-    fillSelect(year, years, "Ano (todos)");
-    fillSelect(sector, sectors, "Setor (todos)");
-    fillSelect(role, roles, "Função (todas)");
-
-    function apply() {
-      const term = (q.value || "").trim().toLowerCase();
-      const y = year.value;
-      const s = sector.value;
-      const r = role.value;
-
-      const filtered = projects.filter((p) => {
-        if (y && String(p.year) !== y) return false;
-        if (s && p.sector !== s) return false;
-        if (r && p.role !== r) return false;
-
-        if (term) {
-          const blob =
-            (p.year || "") +
-            " " +
-            (p.name || "") +
-            " " +
-            (p.technologies || "") +
-            " " +
-            (p.outcome || "") +
-            " " +
-            (p.sector || "") +
-            " " +
-            (p.role || "");
-          if (!blob.toLowerCase().includes(term)) return false;
-        }
-        return true;
-      });
-
-      list.innerHTML = "";
-      if (!filtered.length) {
-        const card = document.createElement("div");
-        card.className = "card";
-        const p = document.createElement("p");
-        p.className = "muted";
-        p.textContent = "Sem resultados.";
-        card.appendChild(p);
-        list.appendChild(card);
-      } else {
-        for (const p of filtered) list.appendChild(makeCard(p));
-      }
-
-      count.textContent = filtered.length + " projeto(s)";
-    }
-
-    q.addEventListener("input", apply);
-    year.addEventListener("change", apply);
-    sector.addEventListener("change", apply);
-    role.addEventListener("change", apply);
-
-    clear.addEventListener("click", () => {
-      q.value = "";
-      year.value = "";
-      sector.value = "";
-      role.value = "";
-      apply();
-    });
-
-    apply();
-  }
-
   async function initProjectDetail() {
-    const titleEl = document.getElementById("title");
-    const metaEl = document.getElementById("meta");
-    const techEl = document.getElementById("tech");
-    const outEl = document.getElementById("outcome");
-    const notesEl = document.getElementById("notes");
+  const titleEl = document.getElementById("title");
+  const metaEl = document.getElementById("meta");
+  const techEl = document.getElementById("tech");
+  const outEl = document.getElementById("outcome");
+  const notesEl = document.getElementById("notes");
 
-    const params = new URLSearchParams(location.search);
-    const slug = params.get("slug");
+  const params = new URLSearchParams(location.search);
+  const slug = params.get("slug");
 
-    const projects = await loadProjects();
-    const p = projects.find((x) => x.slug === slug) || projects[0];
+  const projects = await loadProjects();
+  const p = projects.find((x) => x.slug === slug) || projects[0];
 
-    if (!p) {
-      if (titleEl) titleEl.textContent = "Projeto não encontrado";
-      return;
-    }
+  if (!p) {
+    if (titleEl) titleEl.textContent = "Projeto não encontrado";
+    return;
+  }
 
-    document.title = (p.name || "Projeto") + " — Nelson Santos";
-    if (titleEl) titleEl.textContent = p.name || "";
+  document.title = (p.name || "Projeto") + " — Nelson Santos";
+  if (titleEl) titleEl.textContent = p.name || "";
 
-    if (metaEl) {
-      metaEl.innerHTML = "";
-      [p.year, p.sector, p.role].filter(Boolean).forEach((x) => {
-        metaEl.appendChild(makeBadge(String(x)));
-      });
-    }
+  if (metaEl) {
+    metaEl.innerHTML = "";
+    [p.year, p.sector, p.role].filter(Boolean).forEach((x) => {
+      metaEl.appendChild(makeBadge(String(x)));
+    });
+  }
 
-    if (techEl) {
-      techEl.innerHTML = "";
-      const tech = String(p.technologies || "")
-        .split(/,\s*/)
-        .map((x) => x.trim())
-        .filter(Boolean);
+  if (techEl) {
+    techEl.innerHTML = "";
+    const tech = String(p.technologies || "")
+      .split(/,\s*/)
+      .map((x) => x.trim())
+      .filter(Boolean);
 
-      if (!tech.length) {
-        const span = document.createElement("span");
-        span.className = "muted";
-        span.textContent = "(não especificado)";
-        techEl.appendChild(span);
-      } else {
-        tech.forEach((t) => techEl.appendChild(makeBadge(t)));
-      }
-    }
-
-    if (outEl) outEl.textContent = p.outcome || "";
-    if (notesEl) {
-      const txt = p.notes || p.scale || "";
-      if (txt) {
-        notesEl.textContent = txt;
-      } else {
-        notesEl.innerHTML = "";
-        const span = document.createElement("span");
-        span.className = "muted";
-        span.textContent = "(sem notas adicionais)";
-        notesEl.appendChild(span);
-      }
+    if (!tech.length) {
+      const span = document.createElement("span");
+      span.className = "muted";
+      span.textContent = "(não especificado)";
+      techEl.appendChild(span);
+    } else {
+      tech.forEach((t) => techEl.appendChild(makeBadge(t)));
     }
   }
+
+  if (outEl) outEl.textContent = p.outcome || "";
+
+  if (notesEl) {
+    const txt = p.notes || p.scale || "";
+    if (txt) {
+      notesEl.textContent = txt;
+    } else {
+      notesEl.innerHTML = "";
+      const span = document.createElement("span");
+      span.className = "muted";
+      span.textContent = "(sem notas adicionais)";
+      notesEl.appendChild(span);
+S
+    }
+  }
+
+  // ----- Outros projetos (relacionados) -----
+  const relatedEl = document.getElementById("related");
+  if (relatedEl) {
+    const currentSlug = p.slug;
+
+    const currentTech = new Set(
+      String(p.technologies || "")
+        .split(/,\s*/)
+        .map((t) => t.trim().toLowerCase())
+        .filter(Boolean)
+    );
+
+    function scoreProject(x) {
+      if (!x || x.slug === currentSlug) return -1;
+
+      let score = 0;
+
+      if (p.sector && x.sector && x.sector === p.sector) score += 50;
+      if (p.role && x.role && x.role === p.role) score += 25;
+
+      const tech = new Set(
+        String(x.technologies || "")
+          .split(/,\s*/)
+          .map((t) => t.trim().toLowerCase())
+          .filter(Boolean)
+      );
+
+      let common = 0;
+      for (const t of tech) if (currentTech.has(t)) common++;
+      score += common * 8;
+
+      const yearNum = Number(x.year) || 0;
+      score += Math.min(10, Math.max(0, yearNum - 2000) / 5);
+
+      return score;
+    }
+
+    const ranked = projects
+      .filter((x) => x.slug !== currentSlug)
+      .map((x) => ({ x, s: scoreProject(x) }))
+      .filter((o) => o.s >= 0)
+      .sort(
+        (a, b) =>
+          b.s - a.s || (Number(b.x.year) || 0) - (Number(a.x.year) || 0)
+      )
+      .slice(0, 6)
+      .map((o) => o.x);
+
+    relatedEl.innerHTML = "";
+
+    if (!ranked.length) {
+      const card = document.createElement("div");
+      card.className = "card";
+      const pmsg = document.createElement("p");
+      pmsg.className = "muted";
+      pmsg.textContent = "Sem projetos relacionados.";
+      card.appendChild(pmsg);
+      relatedEl.appendChild(card);
+    } else {
+      for (const rp of ranked) relatedEl.appendChild(makeCard(rp));
+    }
+  }
+}
 
   window.Portfolio = {
     renderLatest,
